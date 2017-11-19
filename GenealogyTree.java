@@ -161,6 +161,8 @@ public class GenealogyTree{
 				String line = scnr.nextLine().trim();	// read the line
 
 				try{
+					
+					
 					String[] parts = line.split("->"); 	// parse the line into parent and child
 
 					String parent = parts[0].trim();
@@ -177,6 +179,9 @@ public class GenealogyTree{
 						
 						q.enqueue(newNode);	// add the root and child to the queue
 						q.enqueue(newChild);
+						
+						System.out.println("newNode is " + newNode.getData());
+						System.out.println("newChild is " + newChild.getData());
 					}
 					
 					else { 	// else Construct other TreeNode
@@ -184,13 +189,18 @@ public class GenealogyTree{
 												
 						while (!q.isEmpty()){ // while queue is not empty
 							TreeNode<String> front = q.element(); // get next node from queue without removing it from queue
-
-
-							if (front.equals(parent)){// if "front" node matches the parent
+							
+//							System.out.println("front is " + front.getData());
+//							System.out.println("parent is " + parent);
+							
+							if (front.getData().equals(parent)){// if "front" node matches the parent
 								TreeNode<String> childNode = new TreeNode<String>(child);// create a TreeNode for the child
 								front.addChild(childNode);// add the child node to the current "front" node (its parent)
 
 								q.enqueue(childNode);// add the child to the queue
+								
+//								System.out.println("newChild is " + childNode.getData() +"\n");
+								
 								break; // break out of the loop
 							}
 													
@@ -200,9 +210,7 @@ public class GenealogyTree{
 						}	
 		
 					}
-				
-					
-						
+										
 				}
 				catch (Exception e){
 					continue;
@@ -210,7 +218,6 @@ public class GenealogyTree{
 								
 			}
 			scnr.close(); // close the file scanner
-
 		}
 		
 		catch (FileNotFoundException e){ // catch IO exceptions, display error message and rethrow the exception
