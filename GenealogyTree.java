@@ -229,7 +229,6 @@ public class GenealogyTree{
 
 
 	}            
-
 	/**
 	 * Display the contents of the tree in a horizontal tree form.
 	 * 
@@ -243,9 +242,17 @@ public class GenealogyTree{
 	 * @param indent_count indicates how many dots .. to print for the current level
 	 * @param indent_str indicates string of characters precede each print level
 	 */
-	private void printTreeWithIndent(TreeNode<String> current, int indent_count, String indent_str){
-        // TODO: COMPLETE THIS METHOD
-
+	private void printTreeWithIndent(TreeNode<String> current, int indent_count, String indent_str)
+	{
+        if(indent_count == 0)
+        {
+        	System.out.println(current.getData());
+        }
+        else
+        {
+        	System.out.print(indent_str);
+        	printTreeWithIndent(current, indent_count - 1, indent_str);
+        }   
 	}
 
 	/**
@@ -279,9 +286,31 @@ public class GenealogyTree{
 	 *  ....g
 	 * </pre>
 	 */
-	public void printTree() {
-		// call recursive helper method
-		printTreeWithIndent(root, 0, "..");
+	public void printTree() 
+	{
+		recursivePrint(root, true, 0);
+	}
+	
+	private void recursivePrint(TreeNode<String> curr, boolean isRoot, int height)
+	{
+		String indent = "..";
+		ListADT<TreeNode<String>> kids = curr.getChildren();
+		Iterator<TreeNode<String>> itr = kids.iterator();
+		if(isRoot)
+		{
+			printTreeWithIndent(root, 0, indent);
+		}
+		printTreeWithIndent(curr, height, indent);
+		if(kids.isEmpty())
+		{
+			return;
+		}
+		
+		while(itr.hasNext())
+		{
+			recursivePrint(itr.next(), false, height + 1);
+		}
+		
 	}
 
 }
