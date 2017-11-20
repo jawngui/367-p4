@@ -16,8 +16,6 @@ import java.io.*;
 public class GenealogyTree{
 
 	public static final String LOAD_GENEALOGY_ERROR_MESSAGE = "Error loading genealogy from file";
-
-	// The root node of the GenealogyTree
 	private TreeNode<String> root;
 
 	public GenealogyTree(){
@@ -68,27 +66,42 @@ public class GenealogyTree{
 	 * @return a stack with the target data node at top and the root at the bottom 
 	 * or an empty stack if target is not found
 	 */
-	private StackADT<String> getAncestorStack(StackADT<String> st, TreeNode<String> curr, String target) {
-		// TODO: must implement this method
-		
-		
-		// if current node is not null
-			// push to stack
-			// check for match
-				// if curr matches target return stack
-
-			// otherwise, iterate through children
-
-			// for each child
-				// get the ancestor stack for that child
-
-				// if top of ancestry stack equals target
-					// return stack
-				// otherwise, pop the top from the stack
-		
-		// return stack if done processing ch
+	private StackADT<String> getAncestorStack(StackADT<String> st, TreeNode<String> curr, String target) 
+	{
+		if(curr != null)
+		{
+			st.push(curr.getData());
+			if(st.peek().equals(target))
+			{
+				return st;
+			}
+			else
+			{
+				ListADT<TreeNode<String>> kids = curr.getChildren();
+				Iterator<TreeNode<String>> itr = kids.iterator();
+			
+				while(itr.hasNext())
+				{
+					getAncestorStack(st, itr.next(), target);
+					if(st.peek().equals(target))
+					{
+						return st;
+					}
+				}
+				st.pop();
+			}
+			
+		}
+		else
+		{
+			System.out.println("Why am i here");// return stack if done processing
+			return st;
+		}
+		return st;
 	}
 
+	
+	
 	/**
 	 * Load a tree from file.
 	 *
@@ -180,8 +193,8 @@ public class GenealogyTree{
 						q.enqueue(newNode);	// add the root and child to the queue
 						q.enqueue(newChild);
 						
-						System.out.println("newNode is " + newNode.getData());
-						System.out.println("newChild is " + newChild.getData());
+						//System.out.println("newNode is " + newNode.getData());
+						//System.out.println("newChild is " + newChild.getData());
 					}
 					
 					else { 	// else Construct other TreeNode
@@ -288,18 +301,14 @@ public class GenealogyTree{
 	 */
 	public void printTree() 
 	{
-		recursivePrint(root, true, 0);
+		recursivePrint(root, 0);
 	}
 	
-	private void recursivePrint(TreeNode<String> curr, boolean isRoot, int height)
+	private void recursivePrint(TreeNode<String> curr, int height)
 	{
 		String indent = "..";
 		ListADT<TreeNode<String>> kids = curr.getChildren();
 		Iterator<TreeNode<String>> itr = kids.iterator();
-		if(isRoot)
-		{
-			printTreeWithIndent(root, 0, indent);
-		}
 		printTreeWithIndent(curr, height, indent);
 		if(kids.isEmpty())
 		{
@@ -308,7 +317,7 @@ public class GenealogyTree{
 		
 		while(itr.hasNext())
 		{
-			recursivePrint(itr.next(), false, height + 1);
+			recursivePrint(itr.next(), height + 1);
 		}
 		
 	}
