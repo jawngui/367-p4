@@ -70,6 +70,7 @@ public class LinkedList<E> implements ListADT<E>
 		if(pos == 0)
 		{
 			head.setNext(new Listnode<E>(item, head.getNext()));
+			return;
 		}
 		for(int h = pos; h > 0; h--)
 		{
