@@ -59,6 +59,11 @@ public class LinkedList<E> implements ListADT<E>
 	public void add(int pos, E item)
 	{
 		if(item == null) throw new java.lang.IllegalArgumentException();
+		if(pos == 0 && this.size() == 0)
+		{
+			this.add(item);
+			return;
+		}
 		if(pos < 0 || pos >= this.size()) throw new java.lang.IndexOutOfBoundsException();
 	
 		Listnode<E> curr = head;
