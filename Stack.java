@@ -16,6 +16,12 @@
 
 import java.util.EmptyStackException;
 
+/**
+ * This class creates and uses a Stack data structure. Items are added to and removed 
+ * from the top of the stack. We implement this stack using a LinkedList.
+ *
+ * @author Matt P'ng
+ */
 public class Stack<T> implements StackADT<T> {
 
 	public LinkedList<T> stack;
