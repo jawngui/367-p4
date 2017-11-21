@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Semester:         CS367 Fall 2017 
-// PROJECT:          P4
+// PROJECT:          P4 Research Geneology
 // FILE:             Stack.java
 //
 // TEAM:    P4 Pair 32
