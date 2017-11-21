@@ -14,7 +14,13 @@
 // Online sources: NA
 //////////////////////////// 80 columns wide //////////////////////////////////
 
-
+/**
+ * This class creates and uses a Queue data structure. Items are added to the 
+ * end of a queue and removed from the front. We implement this queue using a 
+ * LinkedList.
+ *
+ * @author Matt P'ng
+ */
 public class Queue<T> implements QueueADT<T> {
 	
 	public LinkedList<T> q;
