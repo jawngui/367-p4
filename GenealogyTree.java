@@ -1,3 +1,19 @@
+/////////////////////////////////////////////////////////////////////////////
+// Semester:         CS367 Fall 2017 
+// PROJECT:          P4 Research Geneology
+// FILE:             Stack.java
+//
+// TEAM:    P4 Pair 32
+// Authors: Matt P'ng, Jasper Nelson
+// Author1: Matt P'ng, mpng@wisc.edu, mpng, 002
+// Author2: Jasper Nelson, jnelson27@wisc.edu, jnelson27, 002
+//
+// ---------------- OTHER ASSISTANCE CREDITS 
+// Persons: NA
+// 
+// Online sources: NA
+//////////////////////////// 80 columns wide //////////////////////////////////
+
 import java.util.*;
 import java.io.*;
 
@@ -16,7 +32,7 @@ import java.io.*;
 public class GenealogyTree{
 
 	public static final String LOAD_GENEALOGY_ERROR_MESSAGE = "Error loading genealogy from file";
-	private TreeNode<String> root;
+	private TreeNode<String> root; // Root node at the top of the Genealogy tree
 
 	public GenealogyTree(){
 		root = null;
@@ -46,6 +62,7 @@ public class GenealogyTree{
 		// DO NOT CHANGE THIS METHOD
 		StackADT<String> stack = new Stack<String>();
 		stack = getAncestorStack(stack,root,target);
+		
 		if (stack.peek().equals(target)) {
 			return stack;
 		}
@@ -158,88 +175,62 @@ public class GenealogyTree{
 	 * 
 	 */
 	public void buildFromFile(String filename) throws IOException{
-        // TODO: COMPLETE THIS METHOD
-
-		// Create a queue, add each new node to the queue
+		
 		Queue<TreeNode<String>> q = new Queue<TreeNode<String>>();
-		
-		
+	
 		try{
 			File file = new File(filename);
 			Scanner scnr = new Scanner(file);// create a Scanner connect to the file
-
 			
 			while (scnr.hasNextLine()){ // for each line of the file
-				String line = scnr.nextLine().trim();	// read the line
+				String line = scnr.nextLine().trim();	
 
 				try{
-					
-					
 					String[] parts = line.split("->"); 	// parse the line into parent and child
 
 					String parent = parts[0].trim();
 					String child = parts[1].trim();
 
-					if (getRoot() == null){		// if root is null
+					if (getRoot() == null){	
 
 						TreeNode<String> newNode = new TreeNode<String>(parent); // create the root
 						TreeNode<String> newChild = new TreeNode<String>(child);
 						newNode.addChild(newChild);		// add its first child
-						
 						root = newNode;
 
-						
 						q.enqueue(newNode);	// add the root and child to the queue
 						q.enqueue(newChild);
-						
-						//System.out.println("newNode is " + newNode.getData());
-						//System.out.println("newChild is " + newChild.getData());
-					}
+						}
 					
 					else { 	// else Construct other TreeNode
 
-												
-						while (!q.isEmpty()){ // while queue is not empty
-							TreeNode<String> front = q.element(); // get next node from queue without removing it from queue
-							
-//							System.out.println("front is " + front.getData());
-//							System.out.println("parent is " + parent);
-							
-							if (front.getData().equals(parent)){// if "front" node matches the parent
-								TreeNode<String> childNode = new TreeNode<String>(child);// create a TreeNode for the child
-								front.addChild(childNode);// add the child node to the current "front" node (its parent)
+						// Iterate until queue is empty or parent is found
+						while (!q.isEmpty()){ 
+						
+							TreeNode<String> front = q.element(); // get next node from queue without removing it
+							if (front.getData().equals(parent)){// if "front" node of queue matches the parent
+								TreeNode<String> childNode = new TreeNode<String>(child);
+								front.addChild(childNode);// add the child node to the current front node (its parent)
 
-								q.enqueue(childNode);// add the child to the queue
-								
-//								System.out.println("newChild is " + childNode.getData() +"\n");
-								
-								break; // break out of the loop
+								q.enqueue(childNode);
+								break; 
 							}
-													
-							else {		// else dequeue the front node 
+											
+							else {		
 								q.dequeue();
 							}
 						}	
-		
-					}
-										
+					}						
 				}
 				catch (Exception e){
 					continue;
-				}
-								
+				}					
 			}
-			scnr.close(); // close the file scanner
+			scnr.close(); 
 		}
-		
 		catch (FileNotFoundException e){ // catch IO exceptions, display error message and rethrow the exception
 			System.out.println(LOAD_GENEALOGY_ERROR_MESSAGE);
 		}
-		
-
-		
-
-
 	}            
 	/**
 	 * Display the contents of the tree in a horizontal tree form.
@@ -303,6 +294,7 @@ public class GenealogyTree{
 		recursivePrint(root, 0);
 	}
 	
+	// Add method header
 	private void recursivePrint(TreeNode<String> curr, int height)
 	{
 		String indent = "..";
@@ -317,8 +309,6 @@ public class GenealogyTree{
 		while(itr.hasNext())
 		{
 			recursivePrint(itr.next(), height + 1);
-		}
-		
+		}	
 	}
-
 }
