@@ -94,7 +94,6 @@ public class GenealogyTree{
 		}
 		else
 		{
-			System.out.println("Why am i here");// return stack if done processing
 			return st;
 		}
 		return st;
