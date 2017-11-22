@@ -1,3 +1,18 @@
+/////////////////////////////////////////////////////////////////////////////
+// Semester:         CS367 Fall 2017 
+// PROJECT:          P4 Research Geneology
+// FILE:             Stack.java
+//
+// TEAM:    P4 Pair 32
+// Authors: Matt P'ng, Jasper Nelson
+// Author1: Matt P'ng, mpng@wisc.edu, mpng, 002
+// Author2: Jasper Nelson, jnelson27@wisc.edu, jnelson27, 002
+//
+// ---------------- OTHER ASSISTANCE CREDITS 
+// Persons: NA
+// 
+// Online sources: NA
+//////////////////////////// 80 columns wide //////////////////////////////////
 import java.util.*;
 
 /**
@@ -33,7 +48,8 @@ public class Ancestor{
 
     private GenealogyTree g;
 
-    public Ancestor() {
+    public Ancestor() 
+    {
         g = new GenealogyTree();
     }
 
@@ -57,23 +73,76 @@ public class Ancestor{
      * @param name2 of second researcher to find
      * @return the name of the closest (lowest level) common ancestor researcher
      */
-    public String lowestCommonAncestor(String name1, String name2){
+    public String lowestCommonAncestor(String name1, String name2)
+    {
         // TODO: COMPLETE THIS METHOD
+    	StackADT<String> anc1 = null;
+    	StackADT<String> anc2 = null;
     	
-    	// Get the ancestors of each name
-
-    	// display not found messages if appropriate
+    	try
+    	{
+    		anc1 = g.getAncestorStack(name1);
+    		// Get the ancestors of name 1
+    	}
+    	catch(EmptyQueueException e)
+    	{
+    		
+    	}
     	
-    	// return null if either stack is empy
-
-        // if neither stack is empty
-        // reverse both stacks so that the ancestors can be compared
-
-        // Return the lowest level name in the tree
-    	// that is an ancestor of both of the specified 
-    	// researcher names.
+    	try
+    	{
+    		anc2 = g.getAncestorStack(name2);
+    		// Get the ancestors of name 2
+    	}
+    	catch(EmptyQueueException e)
+    	{
+    		
+    	}
     	
-    	// return the common researcher
+    	if(anc1==null)
+    	{
+    		System.out.println(NAME_NOT_FOUND_MESSAGE + name1);
+    		// display not found message
+    	}
+    	if(anc2==null)
+    	{
+    		System.out.println(NAME_NOT_FOUND_MESSAGE + name2);
+    		// display not found message
+    	}
+    	
+    	
+    	if(!(anc1==null) && !(anc2==null))
+    	{
+    		// if neither stack is empty
+            // reverse both stacks so that the ancestors can be compared
+    		anc1 = anc1.reverse();
+    		anc2 = anc2.reverse();
+    		String common = "";// stores common ancestor
+    		
+    		while(!anc1.isEmpty() && !anc2.isEmpty())
+    		{
+    			String check1 = anc1.pop(); //ancestor of name1
+    			String check2 = anc2.pop(); //ancestor of name2
+    			if(check1.equals(check2))
+    			{
+    				//if the ancestor is the same, update common and continue
+    				common = check1;
+    				continue;
+    			}
+    			else
+    			{
+    				//return last common ancestor
+    				return common;
+    			}
+    		}
+    		
+    		return common;
+    	}
+    	else
+    	{
+    		return null;
+    		// return null if either stack is empty
+    	}
     }
 
     /** 
@@ -144,6 +213,7 @@ public class Ancestor{
             }
             a.mainLoop();
         } catch( Exception e ) {
+        	e.printStackTrace();
             System.out.println(PROGRAM_USAGE_MESSAGE);
         }
     }
