@@ -185,7 +185,6 @@ public class GenealogyTree{
 			while (scnr.hasNextLine()){ // for each line of the file
 				String line = scnr.nextLine().trim();	
 
-//				try{
 					String[] parts = line.split("->"); 	// parse the line into parent and child
 
 					String parent = parts[0].trim();
@@ -221,16 +220,12 @@ public class GenealogyTree{
 							}
 						}	
 					}						
-//				}
-//				catch (Exception e){
-//					
-//					continue;
-//				}					
+			
 			} 
 			scnr.close(); 
 		}
-		catch (FileNotFoundException e){ // catch IO exceptions, display error message and rethrow the exception
-			System.out.println(LOAD_GENEALOGY_ERROR_MESSAGE + " HERE");
+		catch (Exception e){ // catch IO exceptions, display error message and rethrow the exception
+			System.out.println(LOAD_GENEALOGY_ERROR_MESSAGE);
 			throw e;
 		}
 	}            
@@ -244,7 +239,7 @@ public class GenealogyTree{
 	 * dots (two per each level) to print for the node
 	 * 
 	 * @param current node to print
-	 * @  param indent_count indicates how many dots .. to print for the current level
+	 * @param indent_count indicates how many dots .. to print for the current level
 	 * @param indent_str indicates string of characters precede each print level
 	 */
 	private void printTreeWithIndent(TreeNode<String> current, int indent_count, String indent_str)
