@@ -213,7 +213,6 @@ public class Ancestor{
             }
             a.mainLoop();
         } catch( Exception e ) {
-        	e.printStackTrace();
             System.out.println(PROGRAM_USAGE_MESSAGE);
         }
     }
