@@ -39,7 +39,6 @@ public class LinkedList<E> implements ListADT<E>
 	 * 
 	 * @author Matt P'ng Jasper Nelson
 	 */
-
 	public LinkedList()
 	{
 		head = new Listnode<E>(null);
@@ -106,7 +105,7 @@ public class LinkedList<E> implements ListADT<E>
 	 * 
 	 * @param item the item to check
 	 * @return true if item is in the List, false otherwise
-	 */
+	 */	
 	public boolean contains(E item)
 	{
 		if(item == null) return false;
@@ -120,7 +119,9 @@ public class LinkedList<E> implements ListADT<E>
 			}
 			curr = curr.getNext();
 		}
+		
 		return false;
+
 	}
 	
 	/**
@@ -180,8 +181,8 @@ public class LinkedList<E> implements ListADT<E>
 		
 		
 	}
-	/**
-	 * Returns the number of items in the List.
+	/*
+	 * Returns the number of items in the List not including the null header node
 	 * 
 	 * @return the number of items in the List
 	 */
@@ -198,7 +199,6 @@ public class LinkedList<E> implements ListADT<E>
 		return count;
 	}
 	
-
 	/** 
 	 * Returns a reference to the header node for this linked list.
 	 * The header node is the first node in the chain and it does not 
@@ -219,7 +219,9 @@ public class LinkedList<E> implements ListADT<E>
 	}
 
 	/**
-	 * Must return a reference to a LinkedListIterator for this list.
+	 * returns a reference to a LinkedListIterator for this linked list
+	 * 
+	 * @return reference to the Iterator
 	 */
 	public LinkedListIterator<E> iterator() 
 	{
